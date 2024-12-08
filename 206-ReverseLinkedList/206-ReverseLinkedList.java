@@ -1,30 +1,29 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        ListNode prevNode = null; // initialize previous pointer to null
-        ListNode currentNode = head; // head will be the current position
+        // We start with three pointers:
+        // 1. prev: This will keep track of the previous node we processed (starts as null).
+        // 2. next: This will keep track of the next node to process.
+        // 3. curr: This is the current node we are processing (starts as the head of the list).
+        ListNode prev = null;
+        ListNode next = null;
+        ListNode curr = head;
 
-        while (currentNode != null) { // loop until we go through all the nodes
-            ListNode nextNode = currentNode.next; // create a next listNode and save it before we break the link
+        // We loop through the linked list until we reach the end (when curr is null).
+        while (curr != null) {
+            // Store the next node in the list. We need to do this because we will change the current node's next pointer.
+            next = curr.next;
 
-            currentNode.next = prevNode; // reverse the pointer by setting the next to prev
+            // Reverse the link. Instead of pointing to the next node, the current node now points to the previous node.
+            curr.next = prev;
 
-            // we can think of the two lines above as almost flipping the arrow
-            prevNode = currentNode; // now set prev forward to the currnet node
+            // Move the previous pointer to the current node (since the current node is now processed).
+            prev = curr;
 
-            currentNode = nextNode; // increment and move the current forward to the next node
+            // Move the current pointer to the next node (to continue processing the rest of the list).
+            curr = next;
         }
 
-        return prevNode;
-
+        // When we've processed all nodes, the prev pointer will be at the new head of the reversed list.
+        return prev;
     }
 }
