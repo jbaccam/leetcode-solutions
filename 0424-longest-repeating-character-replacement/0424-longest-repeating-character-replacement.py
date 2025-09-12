@@ -10,10 +10,12 @@ class Solution:
         for r in range(len(s)):
             # so here we are incrementing the count of the character as the right pointer into our hashmap
             count[s[r]] = 1 + count.get(s[r], 0)
-            # 
-            while (r - l + 1) - max(count.values()) > k:
-                count[s[l]] -= 1
-                l += 1
+            # if the size of the window, minus the most frequent character, is greater than k, than we know that our window is TOO large, we dont have enough replacements, to be able to make this a valid substring, so we need to increment our left pointer to the next spot so we try out other substrings. And since were incrementing our pointer to the next position, first we have to decrement the character count that the previous pointer tracked, because that character, will no longer be in our window
+            if (r - l + 1) - max(count.values()) > k: 
+                count[s[l]] -= 1 # decrement the prev character at this pointer
+                l += 1 # move the pointer to the right
 
+            # then we can take the size of the valid window (substring) and compare it to the previous ones and take the meax
             res = max(res, r - l + 1)
+            
         return res
