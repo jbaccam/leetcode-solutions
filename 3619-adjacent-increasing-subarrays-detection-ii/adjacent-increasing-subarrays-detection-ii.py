@@ -21,6 +21,12 @@ class Solution:
             # and then we take the max of k, the min between currlen and prevlen, like in the example, 
             # we are bottlenecked by the smallest, k must be the same size for both of them
             # and currlen as a last check
+            # and you might ask like what happens if we have an array like [1,2,3,4,1]
+            # prevlen would be 4 and cur would be 1 right?
+            # yes, but min wouldnt evn do anything here, because as currlen got to 4, we ran this currlen // 2 so our 
+            # k value is already 2
+            # thats why we run this check after every iteration 
+            
             k = max(k, min(currlen,prevlen), currlen //2)
         
         return k
