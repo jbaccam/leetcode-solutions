@@ -31,18 +31,22 @@ class Solution:
                     # representing a fresh ornage
                     if (nr < len(grid) and nc < len(grid[0])
                         and nr >= 0 and nc >= 0 and grid[nr][nc] == 1):
+                        # if its valid then append its children to the queue
+                        # set the fresh oranges to rotten
+                        # and decrement the fresh orange count
                         queue.append((nr,nc))
                         grid[nr][nc] = 2
                         fresh_oranges -= 1
-            
+            # if this loop ends, the bfs of the current rotten oranges just finished
+            # so that was 1 minute
+            # increment
             minutes += 1
 
+        # return minutes if fresh_oranges got to 0, if it was unachievable
+        # return -1
         return minutes if fresh_oranges == 0 else -1
                     
 
-[[2,2,2],
- [2,2,0],
- [0,2,2]]
 
 
 
