@@ -20,6 +20,7 @@ class Solution:
             # then we can just divide it by 2 to get the max k size adjacent increasing subararys
             # and then we take the max of k, the min between currlen and prevlen, like in the example, 
             # we are bottlenecked by the smallest, k must be the same size for both of them
+            # and currlen as a last check
             k = max(k, min(currlen,prevlen), currlen //2)
         
         return k
