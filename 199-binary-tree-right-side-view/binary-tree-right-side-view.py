@@ -20,12 +20,12 @@ class Solution:
             # go over every node in this level
             for i in range(queue_len):
                 cur = queue.popleft()
-                if cur:
+                if cur: # node could be null
                     rightSide = cur # rightSide will get continously updated until we reach the last element of queue, which it will then become
                     # the right most element
                     queue.append(cur.left) # always add left before right so its in order
                     queue.append(cur.right)
-            if rightSide:
+            if rightSide: # right side could be null 
                 res.append(rightSide.val)
         
         return res
