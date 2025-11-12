@@ -22,23 +22,24 @@ class Solution:
             # base cases
             if (r < 0 or c < 0 or r >= rows or c >= cols or 
                 grid[r][c] == -1 or (r, c) in visited):
-                return
+                return 0 
             
             # found the end - check if we visited all squares
             if grid[r][c] == 2:
                 if len(visited) == empty - 1:  # -1 because we haven't added end yet
-                    res += 1
-                return
+                    return 1
+                return 0
             
             # mark as visited
             visited.add((r, c))
             
+            paths = 0
             # try all 4 directions
             for dr, dc in directions:
-                dfs(r + dr, c + dc)
+                paths += dfs(r + dr, c + dc)
             
             # backtrack
             visited.remove((r, c))
+            return paths
         
-        dfs(start_r, start_c)
-        return res
+        return dfs(start_r, start_c)
