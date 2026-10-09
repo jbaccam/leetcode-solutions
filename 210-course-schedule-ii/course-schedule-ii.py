@@ -1,34 +1,31 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        courseMap = defaultdict(list)
+        result = []
+        indegree = {course: 0 for course in range(numCourses)}
+        neighbors = defaultdict(list)
+
         for course, prereq in prerequisites:
-            courseMap[course].append(prereq)
-        courses = []
-        visited = set() # loop
-        processed = set() # whats been added to result
-
-        def dfs(course):
-            # base cases
-            # cycle detection
-            if course in visited:
-                return False
-            # already processed
-            if course in processed:
-                return True
-            
-            visited.add(course)
-
-            for prereq in courseMap[course]:
-                if not dfs(prereq):
-                    return False
-            
-            visited.remove(course)
-            processed.add(course)
-            courses.append(course)
-            return True
-
+            neighbors[prereq].append(course)
+            indegree[course] += 1
+        
+        queue = deque()
         for course in range(numCourses):
-            if not dfs(course):
-                return []
+            if indegree[course] == 0:
+                queue.append(course)
 
-        return courses
+        while queue:
+            course = queue.popleft()
+            result.append(course)
+            for neighbor in neighbors[course]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        
+        print(result)
+        if len(result) == numCourses:
+            return result
+        else:
+            return []
+
+
+        
